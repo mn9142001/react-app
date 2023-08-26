@@ -9,12 +9,22 @@ import {
   } from "react-router-dom";
 import "./index.css";
 import ProtectedComponent from './components/protected_route';
+import LogIn from './screens/register/login';
+import SignUp from './screens/register/signup';
 
 const router = createBrowserRouter([
         {
             path: "/",
             element: <ProtectedComponent component={App} />
         },
+        {
+            path : "/login/",
+            element: <LogIn />
+        },
+        {
+            path : "/signup/",
+            element : <SignUp />
+        }
     ]
 );
 
