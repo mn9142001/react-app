@@ -11,11 +11,15 @@ import "./index.css";
 import ProtectedComponent from './components/protected_route';
 import LogIn from './screens/register/login';
 import SignUp from './screens/register/signup';
+import { QueryClient, QueryClientProvider } from 'react-query';
+
+
+
 
 const router = createBrowserRouter([
         {
             path: "/",
-            element: <ProtectedComponent component={App} />
+            element: <ProtectedComponent component={<App />} />
         },
         {
             path : "/login/",
@@ -24,14 +28,22 @@ const router = createBrowserRouter([
         {
             path : "/signup/",
             element : <SignUp />
+        },
+        {
+            path : "*",
+            element : <SignUp />
         }
     ]
 );
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+const queryClient = new QueryClient()
+
 root.render(
-    <RouterProvider router={router} />
+    <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+    </QueryClientProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

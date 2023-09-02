@@ -1,17 +1,25 @@
 import GenericForm from "../../utils/generic_form";
+import {LOGIN} from "../../utils/constants";
+import { useNavigate } from "react-router-dom";
 
 const LogIn = () => {
     const fields = [
-        { name: "email", placeholder: "email", type: "email" },
+        { name: "username", placeholder: "username", type: "text" },
         { name: "password", placeholder: "password", type: "password" },
     ];
 
-    const handleSubmit = (formData) => {
-        // Handle form submission with the formData
-        console.log("Form submitted:", formData);
+    const navigate = useNavigate()
+
+    const handleSuccess = (response) => {
+        console.log("success", response)
+        navigate('/')
     };
 
-    return <GenericForm fields={fields} onSubmit={handleSubmit} />;
+    const handleError = (response) => {
+        console.log("ops", response)
+    };
+
+    return <GenericForm onError={handleError} fields={fields} submitUrl={LOGIN} onSuccess={handleSuccess} />;
 };
 
 export default LogIn;
