@@ -4,7 +4,7 @@ import axios from "axios";
 import { useMutation } from "react-query";
 import { AUTH_HEADER } from "./constants";
 
-const GenericForm = ({ fields, onSubmit, onSuccess, onPreSubmit, submitUrl, onError, method="post", token }) => {
+const GenericForm = ({ fields, onSubmit, onSuccess, onPreSubmit, submitUrl, onError, method="post", token, formStyle, formDivStyle }) => {
     const initialFormData = fields.reduce((acc, field) => {
         acc[field.name] = "";
         return acc;
@@ -12,12 +12,16 @@ const GenericForm = ({ fields, onSubmit, onSuccess, onPreSubmit, submitUrl, onEr
 
     const [formData, setFormData] = useState(initialFormData);
 
-    const inputChangeHandler = (e) => {
-        const { name, value } = e.target;
+    const setData = (name, value) => {
         setFormData((prev) => ({
             ...prev,
             [name]: value,
         }));
+    }
+
+    const inputChangeHandler = (e) => {
+        const { name, value } = e.target;
+        return setData(name, value)
     };
 
     const sendData = data => {
@@ -61,8 +65,8 @@ const GenericForm = ({ fields, onSubmit, onSuccess, onPreSubmit, submitUrl, onEr
     const formSubmitHandler = (e) => {
         e.preventDefault();
         const is_valid = isFormValid(initialFormData, formData);
-        let _formData = formData
         if (is_valid) {
+            let _formData = formData
             if(onPreSubmit) {
                 _formData = onPreSubmit(_formData)
             }
@@ -76,7 +80,7 @@ const GenericForm = ({ fields, onSubmit, onSuccess, onPreSubmit, submitUrl, onEr
         <div className="w-screen h-screen flex items-center justify-center">
             <form className="flex flex-col w-fit p-2" onSubmit={formSubmitHandler}>
                 {fields.map((field) => (
-                    field.isCustom ? field.element :
+                    field.isCustomComponent ? <field.element key={field.name} onValueChange={value => setData(field.name, value)} /> :
                     <input
                         key={field.name}
                         className={inputStyle}

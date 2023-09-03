@@ -2,6 +2,7 @@ import GenericForm from "../../utils/generic_form";
 import {LOGIN} from "../../utils/constants";
 import { useNavigate } from "react-router-dom";
 
+
 const LogIn = () => {
     const fields = [
         { name: "username", placeholder: "username", type: "text" },
