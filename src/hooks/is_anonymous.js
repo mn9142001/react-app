@@ -2,7 +2,7 @@
 
 const IsAuthenticated = _ => {
 
-    return false
+    return true
 
 }
 

@@ -12,6 +12,7 @@ import ProtectedComponent from './components/protected_route';
 import LogIn from './screens/register/login';
 import SignUp from './screens/register/signup';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import CallApp from './screens/call';
 
 
 
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
         {
             path : "/signup/",
             element : <SignUp />
+        },
+        {
+            path : "/call/:userID",
+            element : <CallApp />
         },
         {
             path : "*",
